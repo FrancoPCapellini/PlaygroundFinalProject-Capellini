@@ -15,7 +15,11 @@ urlpatterns = [ # is a list of individual pages that can be requested from the l
     # Page for adding a new entry
     path('new_entry/<int:topic_id>/', views.new_entry, name = 'new_entry'), # When a URL matching this pattern is requested, Django sends the request and the topic’s ID to the new_entry() view function.
     # Page for editinig an entry.
-    path('edir_entry/<int:entry_id>/', views.edit_entry, name = 'edit_entry'),
+    path('edit_entry/<int:entry_id>/', views.edit_entry, name = 'edit_entry'),
+    # Page for find books.
+    path('find_book/', views.BookFinder, name = 'BookFinder'), 
+    # Page for adding the book you read.
+    path('new_book/', views.NewBook, name = 'NewBook'),
 ]
 
 """ path() take 3 arguments

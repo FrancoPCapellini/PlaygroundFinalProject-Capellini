@@ -12,10 +12,6 @@ class Topic(models.Model):
     
 class Entry(models.Model):
     """ Something specific learned about a topic. """
-    # ForeingKey is the code that conect each entry to a specific topic
-    # each topic is assigned a key or ID when it's created.
-    # on_delete=models.CASCADE when a topic is deleted, all the entries associated with ...
-    # ... that topic should be deleted as well. (cascading delete)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True) # It allows to present entries in the order they were created
@@ -26,3 +22,9 @@ class Entry(models.Model):
     def __str__(self):
         """ Return a string representation of the model. """
         return f"{self.text[0:50]}..."
+    
+class Book(models.Model):
+    """ Book you have read"""
+    name = models.CharField(max_length=50)
+    author = models.CharField(max_length=30)
+    description = models.TextField()

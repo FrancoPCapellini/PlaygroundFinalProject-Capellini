@@ -1,19 +1,28 @@
 from django import forms
-from .models import Topic, Entry# Model we'll work with 
+from .models import Topic, Entry, Book # Model we'll work with 
 
 class TopicForm(forms.ModelForm):
-    # ModelForm consist of a nested Meta class telling Django witch model
-    # to base the form on and witch fields to include in the form.
+    
     class Meta:
-        model = Topic # Build the form from the Topic model. 
-        fields = ['text'] # And includes only text field.
-        labels = {'text': ''} # Tells Django not to generate a label for the text field.
+        model = Topic 
+        fields = ['text'] 
+        labels = {'text': ''} 
 
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['text']
         labels = {'text': ''}
-        # HTML form element such a single-line text box, multi-line text area, or a drop-down list.
-        widgets = {'text': forms.Textarea(attrs={'cols': 80})} # we are customizing the input widget for the field "text" so the ext area will be 80 columns wide insted of the 40 default.
-         
+        widgets = {'text': forms.Textarea(attrs={'cols': 80})} 
+    
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['name','author','description']
+        labels = {'name': 'name of the book', 'author': 'author', 'description': 'description'}
+        widgets = {'description': forms.Textarea(attrs={'cols': 80})}
+
+class BookFinderForm(forms.Form):
+    name = forms.CharField(label = 'Search for book', max_length=100)
+    author = forms.CharField(max_length=100, required=False)
+    description = forms.CharField(max_length=500, required=False)

@@ -1,0 +1,17 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+    <p> Add a new book </p>
+        
+    {% if form.errors %}
+        <p>estan mal los datos</p>
+    {% endif %}
+
+    <form action="{% url 'learning_logs:NewBook' %}" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button name="submit">Add new book</button>
+    </form>
+{% endblock content %} 

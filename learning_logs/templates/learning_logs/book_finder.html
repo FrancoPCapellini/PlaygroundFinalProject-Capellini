@@ -1,0 +1,27 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+    <p>Search for books:</p>
+
+    <form action="{% url 'learning_logs:BookFinder' %}" method="GET">
+        <input type="text" name="name" id="name">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if name and books %}
+    <h2>Search results for the book: {{ name }}</h2>
+
+    <ul>
+        {% for book in books %}
+        <li>{{ book.name }}</li>
+        <li>by: {{ book.author }}</li>
+        <p>{{ book.description }}</p>
+        {% endfor %}
+    </ul> 
+    {% elif name and not books %}
+        <p>No resulats found for the search: {{ name }}</p>
+    {% endif %}
+
+    <a href="{% url 'learning_logs:NewBook' %}">Add a new book</a>
+
+{% endblock content %}

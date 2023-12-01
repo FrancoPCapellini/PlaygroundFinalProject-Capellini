@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect 
-from .models import Topic, Entry
-from .forms import TopicForm , EntryForm # redirect y TopicForm se agregan con los forms, despues de crear forms.py
+from .models import Topic, Entry, Book
+from .forms import TopicForm , EntryForm, BookForm, BookFinderForm# redirect y TopicForm se agregan con los forms, despues de crear forms.py
 
 # Create your views here.
 def index(request):
@@ -89,3 +89,33 @@ def edit_entry(request, entry_id):
     
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+def BookFinder(request):
+    """ search for the book you read """
+    if request.method == 'GET':
+        form = BookFinderForm(data = request.GET)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            books = Book.objects.filter(name__icontains=name)
+            context = {'name': name,'books': books}
+            return render(request, 'learning_logs/book_finder.html', context)
+    else:
+        form = BookFinderForm()
+    
+    context = {'form': form}
+    return render(request, 'learning_logs/book_finder.html', context)
+
+def NewBook(request):
+    """ add a new particular book """
+    if request.method != 'POST':
+        form = BookForm()
+    else:
+        form = BookForm(data = request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('learning_logs:BookFinder')
+    
+    context = {'form':form}
+    return render(request, 'learning_logs/new_book.html', context)
+
+
