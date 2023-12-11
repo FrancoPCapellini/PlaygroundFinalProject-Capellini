@@ -1,0 +1,15 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+    <br>
+    {% for book in books %}
+        <li>Book name: {{ book.name }}, Author: {{ book.author }}</li>
+        <button>
+            <a href="{% url 'learning_logs:DeleteBook' book.name %}">Delete</a>
+        </button>
+        <button>
+            <a href="{% url 'learning_logs:EditBook' book.name %}">Edit</a>
+        </button>
+    
+    {% endfor %}
+{% endblock content %}

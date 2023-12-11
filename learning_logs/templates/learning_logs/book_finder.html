@@ -9,7 +9,7 @@
     </form>
 
     {% if name and books %}
-    <h2>Search results for the book: {{ name }}</h2>
+    <h3>Search results for the book: {{ name }}</h3>
 
     <ul>
         {% for book in books %}
@@ -22,6 +22,7 @@
         <p>No resulats found for the search: {{ name }}</p>
     {% endif %}
 
-    <a href="{% url 'learning_logs:NewBook' %}">Add a new book</a>
+    <a href="{% url 'learning_logs:NewBook' %}">Add a new book</a> <br> <br>
+    <a href="{% url 'learning_logs:AllBooks' %}">View all books</a>
 
 {% endblock content %}

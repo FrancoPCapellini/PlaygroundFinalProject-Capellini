@@ -1,32 +1,33 @@
 {% extends 'learning_logs/base.html' %}
 
+{% block page_header %}
+  <h3>{{ topic }}</h3> 
+{% endblock page_header %}
+
 {% block content %}
 
-  <p>Topic: {{ topic }}</p> <!-- Is available because it's included in the context dictionary -->
-
-  <p>Entries: </p>
   <p>
     <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
   </p>
-  <ul>
+  
   {% for entry in entries %}
-    <li>
-      <p>{{ entry.date_added|date:"M d, Y H:i" }}</p> 
-      <p></p> 
-  <!-- The '|' represents a template filter, 
-       a function that modifies the value in a template variable
-       'M d, Y H:i' displays timestamps in the format January 1, 2018 23:00 -->
-       <p>{{ entry.text|linebreaks }}</p> 
-  <!-- The 'linebrakes' ensures that long text entries include line breaks in a format 
-     understood by browsers, rather than showing a block of uninterrupted text. -->
-       <p>
+    <div class="card mb-3">
+      <h4 class="card-header">
+        {{ entry.date_added|date:'M d, Y H:i' }} <!-- The '|' represents a template filter, 
+          a function that modifies the value in a template variable
+          'M d, Y H:i' displays timestamps in the format January 1, 2018 23:00 -->
+        <small>
           <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
-       </p>
-  </li>
+        </small>
+      </h4>
+      <div class="card-body">
+        {{ entry.text|linebreaks}} <!-- The 'linebrakes' ensures that long text entries include line breaks in a format 
+          understood by browsers, rather than showing a block of uninterrupted text. -->
+      </div>
+    </div>
+
   {% empty %}
     <li> There are no entries for this topic yet. </li>
   {% endfor %}
-  </ul>
-
 
 {% endblock content %}

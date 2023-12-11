@@ -1,0 +1,40 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>List of books</h2> 
+{% endblock page_header %}
+
+{% block content %}
+<a href="{% url 'learning_logs:NewBook' %}">New Book</a>
+<br>
+<br>
+    <form action="{% url 'learning_logs:BookFinder' %}" method="GET" class="form">
+        <label>Search for books:</label>
+        {% buttons %}
+          <input type="text" name="name" id="name">
+          <button name="submit" class="btn btn-primary">search</button>
+        {% endbuttons %}
+    </form>
+    <br>
+
+    {% if name and not books %}
+        <p>No results found for the search: {{ name }}</p>
+    {% endif %}
+
+{% for book in books %}
+    <div class="card mb-3" style="width: 26rem;">
+        <h5 class="card-header">
+            {{ book.name }}
+            <small class="ml-3">
+                <a href="{% url 'learning_logs:DetailBook' book.pk %}">See</a>
+                |
+                <a href="{% url 'learning_logs:EditBook' book.pk %}">Edit</a>
+                |
+                <a href="{% url 'learning_logs:DeleteBook' book.pk %}">Delete</a>
+            </small>
+        </h5>
+    </div>
+{% endfor %}
+
+{% endblock content %}

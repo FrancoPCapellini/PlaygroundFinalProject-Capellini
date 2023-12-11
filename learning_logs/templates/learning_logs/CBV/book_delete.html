@@ -1,0 +1,20 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>Delete Book</h2>
+{% endblock page_header %}
+
+{% block content %}
+
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <p>Are you sure, do you want the delete the book {{ book.name }}?</p>
+        {% bootstrap_form form %}
+        {% buttons %}
+        <input type="submit" class="btn btn-primary" value="Delete">
+        <button name="submit" class="btn btn-second"><a href="{% url 'learning_logs:ListBooks' %}">Back</a></button>
+        {% endbuttons %}
+    </form>
+   
+{% endblock content %}

@@ -1,22 +1,30 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>Topics</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-  <p>Topics</p>
-
-  <ul>
+  <div class="container mr-2">
     {% for topic in topics %}
-      <li>
+      <li class="list-unstyled">
+        <h4>
         <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
         <!-- difference between topic.id and topic_id
              topic.id examines a topic and retrieves the value of the corresponding ID 
              the variable topic_id is a reference to that ID in the code -->
       </li>
+    </h4>
     {% empty %} <!-- tells Django what to do if there are no items in the list -->
-      <li> No topics had been added yet. </li> <!-- message printed if there are no items -->
+      <h5> No topics had been added yet. </h5> <!-- message printed if there are no items -->
     {% endfor %}
-  </ul>
+  </div>
+  <br>
+  <p><a href="{% url 'learning_logs:new_topic' %}"> Add a new topic </a></p>
+  
 
-  <a href="{% url 'learning_logs:new_topic' %}"> Add a new topic </a>
+  
 
 {% endblock content %}
