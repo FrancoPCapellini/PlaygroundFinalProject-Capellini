@@ -214,13 +214,13 @@ class BookDeleteView(LoginRequiredMixin, DeleteView):
     
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        # Check if the user is the owner of the book before deleting
+        
         if self.object.user == self.request.user:
             success_url = self.get_success_url()
             self.object.delete()
             return render(success_url)
         else:
-            # Handle unauthorized delete attempt
+
             return render("You don't have permission to delete this book.")
 # -------------------  Login  ---------------------------
 # def LoginRequest(request):

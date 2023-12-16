@@ -1,0 +1,14 @@
+{% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Eliminar Perfil</h2>
+    <p>¿Estás seguro de que quieres eliminar tu perfil?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Eliminar Perfil</button>
+      <a href="{% url 'learning_logs:index' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

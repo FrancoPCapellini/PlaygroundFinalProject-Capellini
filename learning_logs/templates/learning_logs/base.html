@@ -27,23 +27,46 @@
             <a class="nav-link" href="{% url 'learning_logs:topics' %}"> Topics </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'learning_logs:ListBooks'%}">Books</a>
+            <a class="nav-link" href="{% url 'learning_logs:ListBooks' %}">Books</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
             <li class="navbar-item pr-2">
-              <span class="navbar-text">Hello, {{ user.username }}</span>
+              <span class="navbar-text">Hello,{{ user.username }}</span> 
             </li>
-            <li class="nav-item pt-2">
-              <a class="navbar-link" href="{% url 'users:logout' %}">Log out</a>
-            </li>
+            {% if user.profile  %}
+              {% if user.profile.rol == 'admin' %}
+                <li class="navbar-item pr-2 ">
+                  <a class="btn btn-outline-secondary" href="{% url 'users:profile-creation' %}">Crear perfil</a>
+                  
+                  <a class="btn btn-outline-primary" href="{% url 'users:profile-detail' user.profile.pk %}">Ver perfil</a>
+                </li>
+                <li class="nav-item pt-2">
+                  <a class="navbar-link" href="{% url 'users:logout' %}">Log out</a>
+                </li>
+              {% elif user.profile.rol == 'user' %}
+                <li class="navbar-item pr-2">
+                  <a class="btn btn-outline-primary" href="{% url 'users:profile-detail' user.profile.pk %}">Ver perfil</a>
+                </li>
+                <li class="nav-item pt-2">
+                  <a class="navbar-link" href="{% url 'users:logout' %}">Log out</a>
+                </li>
+              {% endif %}
+            {% else %}
+              <li class="navbar-item pr-2">
+                <a class="btn btn-primary" href="{% url 'users:profile-creation' %}">Crear perfil</a>
+              </li>
+              <li class="nav-item pt-2">
+                <a class="navbar-link" href="{% url 'users:logout' %}">Log out</a>
+              </li>
+            {% endif %}
           {% else %}
             <li class="navbar-item pr-3">
               <a class="navbar-link" href="{% url 'users:register' %}">Register</a>
             </li>
             <li class="navbar-item">
-            <a class="navbar-link" href="{% url 'users:login' %}">Login</a>
+              <a class="navbar-link" href="{% url 'users:login' %}">Login</a>
             </li>
           {% endif %}
         </ul> 

@@ -1,0 +1,20 @@
+{% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card">
+      <h2 class="card-header">Perfil de {{ userprofile.user.username }}</h2>
+      <div class="card-body">
+        <img src="{{ userprofile.image.url }}" alt="{{ userprofile.user.username }}" class="img-fluid mb-3 rounded-circle">
+
+        <p class="card-text"><strong>Rol:</strong> {{ userprofile.get_rol_display }}</p>
+
+        {% if user.is_authenticated and user == userprofile.user %}
+          <a href="{% url 'users:profile-update' pk=userprofile.pk %}" class="btn btn-primary mr-2">Editar Perfil</a>
+          <a href="{% url 'users:profile-delete' pk=userprofile.pk %}" class="btn btn-danger">Eliminar Perfil</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

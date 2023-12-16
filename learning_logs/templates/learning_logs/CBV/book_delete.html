@@ -12,7 +12,7 @@
         <p>Are you sure, do you want the delete the book {{ book.name }}?</p>
         {% bootstrap_form form %}
         {% buttons %}
-        <input type="submit" class="btn btn-primary" value="Delete">
+        <input type="submit" class="btn btn-danger" value="Delete">
         <button name="submit" class="btn btn-second"><a href="{% url 'learning_logs:ListBooks' %}">Back</a></button>
         {% endbuttons %}
     </form>
